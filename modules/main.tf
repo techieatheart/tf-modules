@@ -40,7 +40,7 @@ resource "aws_vpn_connection" "example" {
 
   local_ipv4_network_cidr  = var.vpn_connection_local_ipv4_network_cidr
   remote_ipv4_network_cidr = var.vpn_connection_remote_ipv4_network_cidr
-
+`
   tunnel1_dpd_timeout_action = var.vpn_connection_tunnel1_dpd_timeout_action
   tunnel1_ike_versions       = var.vpn_connection_tunnel1_ike_versions
   tunnel1_inside_cidr        = var.vpn_connection_tunnel1_inside_cidr
