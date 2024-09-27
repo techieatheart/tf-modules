@@ -1,11 +1,11 @@
 # Customer gateway
 resource "aws_customer_gateway" "customer_gw" {
   bgp_asn         = var.customer_gateway_bgp_asn
-  certificate_arn = var.customer_gateway_certificate_arn
-  device_name     = var.customer_gateway_device_name
+  certificate_arn = var.customer_gateway_certificate_arn //optional
+  device_name     = var.customer_gateway_device_name //optional
   ip_address      = var.customer_gateway_ip_address
   type            = "ipsec.1"
-  #tags            = module.this.tags
+  #tags            = module.this.tags //optional
 }
 
 # Virtual Private Gateway
@@ -38,14 +38,14 @@ resource "aws_vpn_connection" "example" {
   transport_transit_gateway_attachment_id = data.aws_ec2_transit_gateway_dx_gateway_attachment.example.id
   tunnel_inside_ip_version                = var.vpn_connection.tunnel1_inside_ip_version
 
-  local_ipv4_network_cidr  = var.vpn_connection_local_ipv4_network_cidr
-  remote_ipv4_network_cidr = var.vpn_connection_remote_ipv4_network_cidr
-`
-  tunnel1_dpd_timeout_action = var.vpn_connection_tunnel1_dpd_timeout_action
-  tunnel1_ike_versions       = var.vpn_connection_tunnel1_ike_versions
-  tunnel1_inside_cidr        = var.vpn_connection_tunnel1_inside_cidr
-  tunnel1_preshared_key      = var.vpn_connection_tunnel1_preshared_key
-  tunnel1_startup_action     = var.vpn_connection_tunnel1_startup_action
+  local_ipv4_network_cidr  = var.vpn_connection_local_ipv4_network_cidr // Customer Gateway side
+  remote_ipv4_network_cidr = var.vpn_connection_remote_ipv4_network_cidr // CG side
+
+  tunnel1_dpd_timeout_action = var.vpn_connection_tunnel1_dpd_timeout_action // optional
+  tunnel1_ike_versions       = var.vpn_connection_tunnel1_ike_versions  //optional
+  tunnel1_inside_cidr        = var.vpn_connection_tunnel1_inside_cidr  // optional
+  tunnel1_preshared_key      = var.vpn_connection_tunnel1_preshared_key // optional
+  tunnel1_startup_action     = var.vpn_connection_tunnel1_startup_action //optional
 
   tunnel1_phase1_dh_group_numbers      = var.vpn_connection_tunnel1_phase1_dh_group_numbers
   tunnel1_phase2_dh_group_numbers      = var.vpn_connection_tunnel1_phase2_dh_group_numbers
@@ -53,6 +53,8 @@ resource "aws_vpn_connection" "example" {
   tunnel1_phase2_encryption_algorithms = var.vpn_connection_tunnel1_phase2_encryption_algorithms
   tunnel1_phase1_integrity_algorithms  = var.vpn_connection_tunnel1_phase1_integrity_algorithms
   tunnel1_phase2_integrity_algorithms  = var.vpn_connection_tunnel1_phase2_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds      = var.vpn_connection_tunnel1_phase1_lifetime_seconds
+  tunnel1_phase2_lifetime_seconds      = var.vpn_connection_tunnel1_phase2_lifetime_seconds
 
   tunnel1_log_options {
     cloudwatch_log_options {
